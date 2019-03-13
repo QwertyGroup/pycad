@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import fnlib as fn
 
-class pyart:
+class Pyart:
     dotSize = 10
     lineWidth = 1.4
     lineStyle = '-'

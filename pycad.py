@@ -107,11 +107,11 @@ def ols_value(x_vals, y_vals):
     x = np.array(x_vals)
     y = np.array(y_vals)
     A = np.vstack([x, np.ones(len(x))]).T
-    k, b = np.linalg.lstsq(A, y, rcond=None)[0]
+    k, b = np.linalg.lstsq(A, y)[0]
     return (k, b)  # y = kx + b
 
 def ols_delta(x_vals, y_vals):
-    k, b = ols_value(x_vals, y_vals)
+    k, _ = ols_value(x_vals, y_vals)
     dbsq = 1 / sum(x_vals) / (len(x_vals) - 1) * sum([(i[1] - k * i[0])**2 for i in zip(x_vals, y_vals)])
     db = dbsq**0.5
     return db
