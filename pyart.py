@@ -1,5 +1,5 @@
 import matplotlib.pyplot as plt
-import fnlib as fn
+import pycad.fnlib as fn
 
 class Pyart:
     dotSize = 10
