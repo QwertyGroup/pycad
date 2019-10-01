@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import pycad.fnlib as fn
 
+
 class Pyart:
     dotSize = 10
     lineWidth = 1.4
@@ -10,7 +11,7 @@ class Pyart:
     textShift = (5, 10)
 
     def __init__(self):
-        fig, ax = plt.subplots(figsize=(10,10), dpi=100)
+        fig, ax = plt.subplots(figsize=(10, 10), dpi=100)
         plt.style.use('bmh')
         self.fig = fig
         self.ax = ax
@@ -19,8 +20,9 @@ class Pyart:
         self.ax.scatter(xdata, ydata, s=self.dotSize, c=color,
                         zorder=zord, label=self.nextLabel)
         if label_dots:
-            for (x,y) in zip(xdata, ydata):
-                self.text(x, y, f'({round(x, decimal_places)}; {round(y, decimal_places)})', font_size)
+            for (x, y) in zip(xdata, ydata):
+                self.text(
+                    x, y, f'({round(x, decimal_places)}; {round(y, decimal_places)})', font_size)
         self.nextLabel = None
 
     def line(self, xdata, ydata, color='k', zord=1):
@@ -47,9 +49,16 @@ class Pyart:
         plt.legend()
         plt.savefig(name, dpi=dpi)
 
-    def show(self):
+    def _show(self, block=True):
         plt.legend()
-        plt.show()
+        plt.show(block=block)
+
+    def show(self):
+        self._show()
+
+    def skip(self):
+        self._show(block=False)
+        plt.close()
 
     def x_deltas(self, xdata, ydata, xdeltas, color='k', zord=1):
         for tripl in zip(xdata, xdeltas, ydata):
@@ -66,7 +75,7 @@ class Pyart:
         self.nextDashes = (None, None)
 
     def text(self, x, y, text, fontsize=12):
-        (x, y) = fn.zip_with(lambda x, y : x + y, (x, y), self.textShift)
+        (x, y) = fn.zip_with(lambda x, y: x + y, (x, y), self.textShift)
         self.ax.text(x, y, text, fontsize=fontsize)
 
     def invert_xaxis(self):
@@ -77,10 +86,11 @@ class Pyart:
 
     def turn_axis_off(self):
         plt.axis('off')
-    
+
     def turn_axis_on(self):
         plt.axis('on')
 
     def circle(self, x, y, r, color='k'):
-        c = plt.Circle((x, y), r, color=color, fill=False, clip_on=False, linewidth=2)
+        c = plt.Circle((x, y), r, color=color, fill=False,
+                       clip_on=False, linewidth=2)
         self.ax.add_artist(c)
